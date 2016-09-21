@@ -1,7 +1,7 @@
 #include "CLinComb.hpp"
 #include "CWreathModuleElement.hpp"
 #include "homomorphism.hpp"
-std::string homname = "g";
+std::string homname = "\\gamma";
 CTensor operator *(CTensor l,CSymm r);
 
 
@@ -16,9 +16,9 @@ CLinComb changeFirstGen(CLinComb in,subgroup type, specht lambda)
     CSymm pi = summand.coset();
     int m = summand.multiplicity();
     spechtbasis x = summand.x();
-    output.CreateAndAdd(homname+a,b,c,pi,m,x);
+    output.CreateAndAdd(homname+"("+a+")",b,c,pi,m,x);
   }
-  std::cout << output.print()<<std::endl;
+  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
   return output;
 }
 
@@ -49,14 +49,14 @@ CLinComb fi1ij(CLinComb in,specht lam)
       {
         if(in.lambda() == specht::t2)
         {
-          output.CreateAndAdd(homname+a,b,c,pi,1*m);
-          output.CreateAndAdd(homname+b,a,c,"t"*pi,1*m);
+          output.CreateAndAdd(homname+"("+a+")",b,c,pi,1*m);
+          output.CreateAndAdd(homname+"("+b+")",a,c,"t"*pi,1*m);
           break;
         }
         if(in.lambda() == specht::s2)
         {
-          output.CreateAndAdd(homname+a,b,c,pi,1*m);
-          output.CreateAndAdd(homname+b,a,c,"t"*pi,-1*m);
+          output.CreateAndAdd(homname+"("+a+")",b,c,pi,1*m);
+          output.CreateAndAdd(homname+"("+b+")",a,c,"t"*pi,-1*m);
           break;
         }
       }
@@ -68,7 +68,7 @@ CLinComb fi1ij(CLinComb in,specht lam)
       }
     }
   }
-  std::cout << output.print()<<std::endl;
+  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
   return output;
 }
 
@@ -173,25 +173,25 @@ CLinComb fkiis(CLinComb in)
         {
           if(summand.x() == spechtbasis::x1)
           {
-            output.CreateAndAdd(homname+c,a,b,"s"*pi,2*m);
-            output.CreateAndAdd(homname+a,b,c,pi,-1*m);
-            output.CreateAndAdd(homname+b,c,a,"ss"*pi,-1*m);
+            output.CreateAndAdd(homname+"("+c+")",a,b,"s"*pi,2*m);
+            output.CreateAndAdd(homname+"("+a+")",b,c,pi,-1*m);
+            output.CreateAndAdd(homname+"("+b+")",c,a,"ss"*pi,-1*m);
             break;
           }
           if(summand.x() == spechtbasis::x2)
           {
-            output.CreateAndAdd(homname+a,b,c,pi,2*m);
-            output.CreateAndAdd(homname+b,c,a,"ss"*pi,-1*m);
-            output.CreateAndAdd(homname+c,a,b,"s"*pi,-1*m);
+            output.CreateAndAdd(homname+"("+a+")",b,c,pi,2*m);
+            output.CreateAndAdd(homname+"("+b+")",c,a,"ss"*pi,-1*m);
+            output.CreateAndAdd(homname+"("+c+")",a,b,"s"*pi,-1*m);
             break;
           }
         }
 
         if(in.lambda() == specht::s3)
         {
-          output.CreateAndAdd(homname+a,b,c,""*pi,1*m);
-          output.CreateAndAdd(homname+b,c,a,"ss"*pi,1*m);
-          output.CreateAndAdd(homname+c,a,b,"s"*pi,1*m);
+          output.CreateAndAdd(homname+"("+a+")",b,c,""*pi,1*m);
+          output.CreateAndAdd(homname+"("+b+")",c,a,"ss"*pi,1*m);
+          output.CreateAndAdd(homname+"("+c+")",a,b,"s"*pi,1*m);
           break;
         }
         if(in.lambda() == specht::t3)
@@ -209,7 +209,7 @@ CLinComb fkiis(CLinComb in)
       }
     }
   }
-  std::cout << output.print()<<std::endl;
+  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
   return output;
 }
 
@@ -239,23 +239,23 @@ CLinComb fkiit(CLinComb in)
         {
           if(summand.x() == spechtbasis::x1)
           {
-            output.CreateAndAdd(homname+a,b,c,pi,1*m);
-            output.CreateAndAdd(homname+b,c,a,"ss"*pi,-1*m);
+            output.CreateAndAdd(homname+"("+a+")",b,c,pi,1*m);
+            output.CreateAndAdd(homname+"("+b+")",c,a,"ss"*pi,-1*m);
             break;
           }
           if(summand.x() == spechtbasis::x2)
           {
-            output.CreateAndAdd(homname+b,c,a,"ss"*pi,1*m);
-            output.CreateAndAdd(homname+c,a,b,"s"*pi,-1*m);
+            output.CreateAndAdd(homname+"("+b+")",c,a,"ss"*pi,1*m);
+            output.CreateAndAdd(homname+"("+c+")",a,b,"s"*pi,-1*m);
             break;
           }
         }
 
         if(in.lambda() == specht::t3)
         {
-          output.CreateAndAdd(homname+a,b,c,""*pi,1*m);
-          output.CreateAndAdd(homname+b,c,a,"ss"*pi,1*m);
-          output.CreateAndAdd(homname+c,a,b,"s"*pi,1*m);
+          output.CreateAndAdd(homname+"("+a+")",b,c,""*pi,1*m);
+          output.CreateAndAdd(homname+"("+b+")",c,a,"ss"*pi,1*m);
+          output.CreateAndAdd(homname+"("+c+")",a,b,"s"*pi,1*m);
           break;
         }
         if(in.lambda() == specht::s3)
@@ -273,7 +273,7 @@ CLinComb fkiit(CLinComb in)
       }
     }
   }
-  std::cout << output.print()<<std::endl;
+  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
   return output;
 }
 
@@ -293,13 +293,13 @@ CLinComb fiiir(CLinComb in)
         {
           if(in.lambda() == specht::t2)
           {
-            output.CreateAndAdd(homname+a,b,c,pi,2*m,spechtbasis::x1);
-            output.CreateAndAdd(homname+a,b,c,pi,1*m,spechtbasis::x2);
+            output.CreateAndAdd(homname+"("+a+")",b,c,pi,2*m,spechtbasis::x1);
+            output.CreateAndAdd(homname+"("+a+")",b,c,pi,1*m,spechtbasis::x2);
             break;
           }
           if(in.lambda() == specht::s2)
           {
-            output.CreateAndAdd(homname+a,b,c,pi,1*m,spechtbasis::x2);
+            output.CreateAndAdd(homname+"("+a+")",b,c,pi,1*m,spechtbasis::x2);
             break;
           }
         }
@@ -316,7 +316,7 @@ CLinComb fiiir(CLinComb in)
         }
     }
   }
-  std::cout << output.print()<<std::endl;
+  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
   return output;
 }
 
@@ -385,7 +385,7 @@ CLinComb iso(CLinComb in, CSymm r)
     int m = summand.multiplicity();
     output.CreateAndAdd(summand.tensor()*r,inverse(r)*pi,m);
   }
-  std::cout << output.print()<<std::endl;
+  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
   return output;
 }
 

@@ -1,8 +1,8 @@
 #include <assert.h>
-
 #include "CWreathModuleElement.hpp"
 #include <iostream>
 
+extern bool latex;
 CTensor operator *(CTensor l,CSymm r);
 
 CWreathModuleElement::CWreathModuleElement(subgroup type, CSymm coset, int multiplicity,
@@ -30,12 +30,26 @@ std::string CWreathModuleElement::print() const
     if(this->multiplicity() == -1) output +="-";
     else if(this->multiplicity()!=1) output+=std::to_string(mmultiplicity);
     output+=mtensor.print();
-    //output+="\otimes"+mcoset.print();
-    output+=mcoset.print();
+    if(latex)
+    {
+        output+="\\otimes "+mcoset.print();
+    }
+    else
+    {
+        output+=mcoset.print();
+    }
     if(mlambda == specht::r)
     {
-      output+= "_";
-      output+=mx==spechtbasis::x1?"x1":"x2";
+        if(latex)
+        {
+            output+="\\otimes ";
+            output+=mx==spechtbasis::x1?"x_1":"x_2";
+        }
+        else
+        {
+            output+= "_";
+            output+=mx==spechtbasis::x1?"x1":"x2";
+        }
     }
     return output;
 }

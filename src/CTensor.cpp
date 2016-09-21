@@ -1,4 +1,5 @@
 #include "CTensor.hpp"
+extern bool latex;
 
 CTensor::CTensor(std::string first, std::string second, std::string third):
     firstcomp(first), secondcomp(second),thirdcomp(third)
@@ -21,8 +22,14 @@ void CTensor::setComponents(std::string first, std::string second, std::string t
 std::string CTensor::print() const
 {
   if(isZero()) return "0";
-    //return "("+firstcomp+"\\otimes "+secondcomp+"\\otimes "+thirdcomp+")";
-  return "("+firstcomp+","+secondcomp+","+thirdcomp+")";
+  if(latex)
+  {
+      return "("+firstcomp+"\\otimes "+secondcomp+"\\otimes "+thirdcomp+")";
+  }
+  else
+  {
+      return "("+firstcomp+","+secondcomp+","+thirdcomp+")";
+  }
 }
 
 bool operator <(const CTensor l,const CTensor r)

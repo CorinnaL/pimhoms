@@ -10,7 +10,7 @@ vpath %.o $(OBJ_PATH)
 vpath %.cpp $(SRC) 
 vpath %.hpp $(INCL) 
 
-OBJ = CLinComb.o CSymm.o CTensor.o functions.o main.o CWreathModuleElement.o calculations.o homomorphism.o checkhoms.o main.o
+OBJ = CLinComb.o CSymm.o CTensor.o functions.o main.o CWreathModuleElement.o calculationstex.o calculations.o homomorphism.o checkhoms.o main.o
 
 COMPILER_FLAGS = -Wall -std=c++11 -I$(INCL)
 
@@ -36,6 +36,9 @@ $(OBJ_PATH)/main.o: main.cpp  | $(OBJ_PATH)
 	g++ $(COMPILER_FLAGS) -c $< -o $@ 
 
 $(OBJ_PATH)/calculations.o: calculations.cpp  | $(OBJ_PATH)
+	g++ $(COMPILER_FLAGS) -c $< -o $@ 
+
+$(OBJ_PATH)/calculationstex.o: calculationstex.cpp  | $(OBJ_PATH)
 	g++ $(COMPILER_FLAGS) -c $< -o $@ 
 
 $(OBJ_PATH)/CWreathModuleElement.o: CWreathModuleElement.cpp CWreathModuleElement.hpp | $(OBJ_PATH)
