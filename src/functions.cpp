@@ -32,6 +32,9 @@ std::string projectiveIndec(std::string i, std::string j, std::string k, std::st
 {
     if(latex)
     {
+        i=texify(i);
+        j=texify(j);
+        k=texify(k);
         if(lam != "")
         {
             return "\\ol{P'}("+i+","+j+","+k+";"+lam+")";
@@ -52,6 +55,7 @@ std::string makecalctitleij(std::string i,std::string j,std::string k,
     std::string cong = "=";
     if(latex)
     {
+        firstind+="&";
         arrow = "\\rightarrow";
         cong = "\\cong";
     }
@@ -74,6 +78,7 @@ std::string makecalctitleji(std::string i,std::string j,std::string k,
     std::string cong = "=";
     if(latex)
     {
+        firstind+="&";
         arrow = "\\rightarrow";
         cong = "\\cong";
     }
