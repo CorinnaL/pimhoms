@@ -6,6 +6,5 @@ bool latex = true;
 int main()
 {
 //  checkAll();
-  if(latex)
-  calculateStufftex();
+      calculateStuff();
 }

@@ -25,11 +25,20 @@ void calculateStuff()
   CLinComb x_kiit(subgroup::ts,specht::t2);
   x_kiit.CreateAndAdd("a","b","c","",1);
   // a\otimes b\otimes c\in P(k,i,i;(2))
+  CLinComb x_kiis(subgroup::ts,specht::s2);
+  x_kiis.CreateAndAdd("a","b","c","",1);
+  // a\otimes b\otimes c\in P(k,i,i;(2))
   CLinComb x_iikt(subgroup::t,specht::t2);
   x_iikt.CreateAndAdd("a","b","c","",1);
   // a\otimes b\otimes c\in P(i,i,k;(2))
   CLinComb x_iiks(subgroup::t,specht::s2);
   x_iiks.CreateAndAdd("a","b","c","",1);
+  // a\otimes b\otimes c\in P(i,i,k;(1,1))
+  CLinComb x_ikit(subgroup::tss,specht::t2);
+  x_ikit.CreateAndAdd("a","b","c","",1);
+  // a\otimes b\otimes c\in P(i,i,k;(2))
+  CLinComb x_ikis(subgroup::tss,specht::s2);
+  x_ikis.CreateAndAdd("a","b","c","",1);
   // a\otimes b\otimes c\in P(i,i,k;(1,1))
   CLinComb x_ijk(subgroup::i,specht::t1);
   x_ijk.CreateAndAdd("a","b","c","",1);
@@ -37,104 +46,107 @@ void calculateStuff()
   checkTwo(Hom(fikit)*Hom(isoiik_kii)*Hom(fkiit),
       Hom(fikit)*Hom(isoiik_kii)*Hom(fkiis),
       x_iiir1,
-     "iii(2,1) -> i-ii(2) = iii-(2) -> i-ii-(2)",
-     "iii(2,1) -> i-ii(1,1) = iii-(1,1) -> i-ii-(2)");
+      "i","i","i","(2,1)","(2)","(1,1)","(2)");
   checkTwo(Hom(fikit)*Hom(isoiik_kii)*Hom(fkiit),
       Hom(fikit)*Hom(isoiik_kii)*Hom(fkiis),
       x_iiir2,
-     "iii(2,1) -> i-ii(2) = iii-(2) -> i-ii-(2)",
-     "iii(2,1) -> i-ii(1,1) = iii-(1,1) -> i-ii-(2)");
+      "i","i","i","(2,1)","(2)","(1,1)","(2)");
   checkTwo(Hom(fikis)*Hom(isoiik_kii)*Hom(fkiit),
       Hom(fikis)*Hom(isoiik_kii)*Hom(fkiis),
       x_iiir1,
-     "iii(2,1) -> i-ii(2) = iii-(2) -> i-ii-(1,1)",
-     "iii(2,1) -> i-ii(1,1) = iii-(1,1) -> i-ii-(1,1)");
+      "i","i","i","(2,1)","(2)","(1,1)","(1,1)");
   checkTwo(Hom(fikis)*Hom(isoiik_kii)*Hom(fkiit),
       Hom(fikis)*Hom(isoiik_kii)*Hom(fkiit),
       x_iiir2,
-     "iii(2,1) -> i-ii(2) = iii-(2) -> i-ii-(1,1)",
-     "iii(2,1) -> i-ii(1,1) = iii-(1,1) -> i-ii-(1,1)");
+      "i","i","i","(2,1)","(2)","(1,1)","(1,1)");
   //those are all possibilities for P(i,i,i;lambda) as there
   //is only one non-zero descending path from P(i,i,i;lambda)
   //if lambda is (3) or (1,1,1)
-  checkThree(Hom(fiikt)*Hom(isokji_ijk)*Hom(fijk),
-             Hom(fkiit)*Hom(fiiit)*Hom(isokii_iik),
-             Hom(fkiit)*Hom(fiiir)*Hom(isokii_iik),
-             x_iikt,
-     "iii+(2) -> i-ii+ = i+ii- -> iii-(2)",
-     "iii+(2) = i+ii(2) -> iii(3) -> i-ii(2)",
-     "iii+(2) = i+ii(2) -> iii(2,1) -> i-ii(2)");
-  checkTwo(Hom(fiiks)*Hom(isokji_ijk)*Hom(fijk),
-             Hom(fkiis)*Hom(fiiir)*Hom(isokii_iik),
-             x_iikt,
-     "iii+(2) -> i-ii+ = i+ii- -> iii-(1,1)",
-     "iii+(2) = i+ii(2) -> iii(2,1) -> i-ii(1,1)");
-  checkThree(Hom(isokii_iik)*Hom(fiiks)*Hom(isokji_ijk)*Hom(fijk),
-             Hom(fkiis)*Hom(fiiis)*Hom(isokii_iik),
-             Hom(fkiis)*Hom(fiiir)*Hom(isokii_iik),
-             x_iiks,
-     "iii+(1,1) -> i-ii+ = i+ii- -> iii-(1,1) = i-ii(1,1)",
-     "iii+(1,1) = i+ii(1,1) -> iii(1,1,1) -> i-ii(1,1)",
-     "iii+(1,1) = i+ii(1,1) -> iii(2,1) -> i-ii(1,1)");
-  checkTwo(Hom(isokii_iik)*Hom(fiikt)*Hom(isokji_ijk)*Hom(fijk),
-             Hom(fkiit)*Hom(fiiir)*Hom(isokii_iik),
-             x_iiks,
-     "iii+(1,1) -> i-ii+ = i+ii- -> iii-(2) = i-ii(2)",
-     "iii+(1,1) = i+ii(1,1) -> iii(2,1) -> i-ii(2)");
+  checkThree(Hom(isojik_ijk)*Hom(fiikt)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fkiit)*Hom(fiiit)*Hom(isokii_iki),
+             Hom(fkiit)*Hom(fiiir)*Hom(isokii_iki),
+             x_ikit,
+             "i","i*","i","(2)","","(3)","(2,1)","(2)",comptype::ijj);
+  checkTwo(Hom(isojik_ijk)*Hom(fiiks)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fkiis)*Hom(fiiir)*Hom(isokii_iki),
+             x_ikit,
+             "i","i*","i","(2)","","(2,1)","(1,1)");
+
+  checkThree(Hom(isojik_ijk)*Hom(fiiks)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fkiis)*Hom(fiiis)*Hom(isokii_iki),
+             Hom(fkiis)*Hom(fiiir)*Hom(isokii_iki),
+             x_ikis,
+             "i","i*","i","(1,1)","","(1,1,1)","(2,1)","(1,1)",comptype::ijj);
+  checkTwo(Hom(isojik_ijk)*Hom(fiiks)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fkiis)*Hom(fiiir)*Hom(isokii_iki),
+             x_ikis,
+             "i","i*","i","(1,1)","","(2,1)","(2)");
   // note that there is only one non-zero path iii+mu -> i-i-i+mu
   // as the intermediate module is always i-ii+
-  checkThree(Hom(isokij_ijk)*Hom(fijk)*Hom(isoiik_kii)*Hom(fkiit),
-             Hom(fijk)*Hom(isoiik_iki)*Hom(fikit)*Hom(isoiik_kii),
-             Hom(fijk)*Hom(isoiik_iki)*Hom(fikis)*Hom(isoiik_kii),
+  checkThree(Hom(isojik_ijk)*Hom(fijk)*Hom(isoiki_kii)*Hom(fkiit),
+             Hom(fijk)*Hom(fiikt)*Hom(isoiki_kii),
+             Hom(fijk)*Hom(fiiks)*Hom(isoiki_kii),
              x_kiit,
-     "ii+i+(2) -> i-i+i+(2) = i+i+i-(2) -> ii+i- = i-ii+",
-     "ii+i+(2) = i+i+i(2) -> ii+i(2) = iii+(2) ->i-ii+",
-     "ii+i+(2) = i+i+i(2) -> ii+i(1,1) = iii+(2) ->i-ii+");
-  checkTwo( Hom(fiiir)*Hom(isokii_iki)*Hom(fikit)*Hom(isoiik_kii),
-            Hom(fiiir)*Hom(isokii_iki)*Hom(fikis)*Hom(isoiik_kii),
-             x_kiit,
-     "ii+i+(2) = i+i+i(2) -> ii+i(2) = i+ii(2) -> iii(2,1)",
-     "ii+i+(2) = i+i+i(2) -> ii+i(1,1) = i+ii(1,1) -> iii(2,1)");
+             "i","i*","i*","(2)","(2)","(2)","(1,1)","",comptype::ijj);
+  checkTwo( Hom(fiiir)*Hom(isokii_iki)*Hom(fikit),
+            Hom(fiiir)*Hom(isokii_iki)*Hom(fikis),
+             x_iikt,
+             "i*","i*","i","(2)","(2)","(1,1)","(2,1)");
   // There is only one descending non-zero path ii+i+mu -> iiilambda
-  checkTwo( Hom(fijk)*Hom(isoiik_kii)*Hom(fkiit),
-            Hom(isokji_ijk)*Hom(fijk)*Hom(isokji_ijk)*Hom(fijk)*Hom(isoiik_kii),
+  checkTwo( Hom(isojik_ijk)*Hom(fijk)*Hom(isoiik_kii)*Hom(fkiit),
+            Hom(isokji_ijk)*Hom(fijk)*Hom(isokji_ijk)*Hom(fijk)*Hom(isoiki_kii),
              x_kiit,
-     "jii(2) -> j-ii(2) = iij-(2) -> i-ij",
-     "jii(2) = iij(2) -> i-ij = jii- -> j-ii- -> i-ij");
+             "j","i","i","(2)","(2)","","");
+  // again there is only one non-zero path jiimu -> ji-i-mu
+  // as the intermediate module is always ji-i
+  checkThree(Hom(isojik_ijk)*Hom(fijk)*Hom(isoiki_kii)*Hom(fkiis),
+             Hom(fijk)*Hom(fiiks)*Hom(isoiki_kii),
+             Hom(fijk)*Hom(fiikt)*Hom(isoiki_kii),
+             x_kiis,
+             "i","i*","i*","(1,1)","(1,1)","(1,1)","(2)","",comptype::ijj);
+  checkTwo( Hom(fiiir)*Hom(isokii_iki)*Hom(fikis),
+            Hom(fiiir)*Hom(isokii_iki)*Hom(fikit),
+             x_iiks,
+             "i*","i*","i","(1,1)","(1,1)","(2)","(2,1)");
+  // There is only one descending non-zero path ii+i+mu -> iiilambda
+  checkTwo( Hom(isojik_ijk)*Hom(fijk)*Hom(isoiik_kii)*Hom(fkiit),
+            Hom(fijk)*Hom(isokji_ijk)*Hom(fijk)*Hom(isoiki_kii),
+             x_kiit,
+             "j","i","i","(2)","(2)","","");
   // again there is only one non-zero path jiimu -> ji-i-mu
   // as the intermediate module is always ji-i
 
 
-  checkThree(Hom(fkiit)*Hom(isokii_iik)*Hom(fiikt)*Hom(isojik_ijk),
-             Hom(isokii_iki)*Hom(fikit)*Hom(fiikt)*Hom(isokji_ijk),
-             Hom(isokii_iki)*Hom(fikit)*Hom(fiiks)*Hom(isokji_ijk),
-             x_ijk,
-     "ii+i+2 = i+ii+2 -> iii+2(2) = i+2ii(2) -> i+ii(2)",
-     "ii+i+2 = i+2i+i -> i+i+i(2) -> ii+i(2) =  i+ii(2)",
-     "ii+i+2 = i+2i+i -> i+i+i(1,1) -> ii+i(2) =  i+ii(2)");
 
-  checkThree(Hom(fkiis)*Hom(isokii_iik)*Hom(fiiks)*Hom(isojik_ijk),
-             Hom(isokii_iki)*Hom(fikis)*Hom(fiikt)*Hom(isokji_ijk),
-             Hom(isokii_iki)*Hom(fikis)*Hom(fiiks)*Hom(isokji_ijk),
+  checkThree(Hom(isoiki_kii)*Hom(fkiit)*Hom(isokii_iki)*Hom(fikit),
+             Hom(fikit)*Hom(fiikt)*Hom(isojik_ijk),
+             Hom(fikit)*Hom(fiiks)*Hom(isojik_ijk),
              x_ijk,
-     "ii+i+2 = i+ii+2 -> iii+2(1,1) = i+2ii(1,1) -> i+ii(1,1)",
-     "ii+i+2 = i+2i+i -> i+i+i(2) -> ii+i(1,1) =  i+ii(1,1)",
-     "ii+i+2 = i+2i+i -> i+i+i(1,1) -> ii+i(1,1) =  i+ii(1,1)");
+             "i","i*","i'","","(2)","(2)","(1,1)","(2)",comptype::ijj);
 
-  //TODO: this looks generic.
+  checkThree(Hom(isoiki_kii)*Hom(fkiis)*Hom(isokii_iki)*Hom(fikis),
+             Hom(fikis)*Hom(fiiks)*Hom(isojik_ijk),
+             Hom(fikis)*Hom(fiikt)*Hom(isojik_ijk),
+             x_ijk,
+             "i","i*","i'","","(1,1)","(1,1)","(2)","(1,1)",comptype::ijj);
+
+  checkTwo(Hom(isokii_iki)*Hom(fikit)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fkiit)*Hom(isokii_iki)*Hom(fikit)*Hom(isojik_ijk),
+             x_ijk,
+             "j","i*","i","","","(2)","(2)");
+  checkTwo(Hom(isokii_iki)*Hom(fikis)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fkiis)*Hom(isokii_iki)*Hom(fikis)*Hom(isojik_ijk),
+             x_ijk,
+             "j","i*","i","","","(1,1)","(1,1)");
+
+  checkThree(Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fijk)*Hom(fiikt)*Hom(isojik_ijk),
+             Hom(fijk)*Hom(fiiks)*Hom(isojik_ijk),
+             x_ijk,
+             "i","i*","j","","","(2)","(1,1)","",comptype::ijj);
+
   checkTwo(Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk)*Hom(fijk),
              Hom(fijk)*Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk),
              x_ijk,
-     "jii+ -> j-ii+ = ij-i+ -> i-j-i+ -> j-i-i+",
-     "jii+ = iji+ -> i-ji+ = ji-i+ ->j-i-i+");
-  checkTwo(Hom(isokii_iki)*Hom(fikit)*Hom(isokij_ijk)*Hom(fijk),
-             Hom(fkiit)*Hom(isokii_iki)*Hom(fikit)*Hom(isokij_ijk),
-             x_ijk,
-     "jii+ -> j-ii+ = i+j-i -> ij-i(2) -> j-ii(2)",
-     "jii+ = i+ji -> iji(2) = jii(2) ->j-ii(2)");
-  checkTwo(Hom(isokii_iki)*Hom(fikis)*Hom(isokij_ijk)*Hom(fijk),
-             Hom(fkiis)*Hom(isokii_iki)*Hom(fikis)*Hom(isokij_ijk),
-             x_ijk,
-     "jii+ -> j-ii+ = i+j-i -> ij-i(1,1) -> j-ii(1,1)",
-     "jii+ = i+ji -> iji(1,1) = jii(1,1) ->j-ii(1,1)");
+             "i","j","k","","","","");
 }

@@ -1,9 +1,9 @@
 #include "CLinComb.hpp"
 #include "CWreathModuleElement.hpp"
 #include "homomorphism.hpp"
-std::string homname = "\\gamma";
+std::string homname = "g";
 CTensor operator *(CTensor l,CSymm r);
-
+extern bool latex;
 
 CLinComb changeFirstGen(CLinComb in,subgroup type, specht lambda)
 {
@@ -18,9 +18,72 @@ CLinComb changeFirstGen(CLinComb in,subgroup type, specht lambda)
     spechtbasis x = summand.x();
     output.CreateAndAdd(homname+"("+a+")",b,c,pi,m,x);
   }
-  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  if(latex)
+  {
+      std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  }
+  else
+  {
+      std::cout <<output.print()<<std::endl;
+  }
   return output;
 }
+CLinComb fi1ji(CLinComb in,specht lam)
+  // Here we assume that the input is from iji(2) / iji(1,1).
+  // Then there are different cases: either i1 != j,
+  // then the result will be of type 1, or i1 == j,
+  // then the result will be of type 2. In this function
+  // we differentiate between the two cases by passing
+  // the type of the output as an argument.
+{
+  CLinComb output(subgroup::t,lam);
+  if(lam == specht::t1)
+  {
+    output = CLinComb(subgroup::i,lam);
+  }
+  for(const auto& summand : in.summands())
+  {
+    std::string a = summand.tensor().first();
+    std::string b = summand.tensor().second();
+    std::string c = summand.tensor().third();
+    CSymm pi = summand.coset();
+    int m = summand.multiplicity();
+    switch(in.type())
+    {
+    case subgroup::tss:
+      {
+        if(in.lambda() == specht::t2)
+        {
+          output.CreateAndAdd(homname+"("+a+")",b,c,pi,1*m);
+          output.CreateAndAdd(homname+"("+c+")",b,a,"tss"*pi,1*m);
+          break;
+        }
+        if(in.lambda() == specht::s2)
+        {
+          output.CreateAndAdd(homname+"("+a+")",b,c,pi,1*m);
+          output.CreateAndAdd(homname+"("+c+")",b,a,"tss"*pi,-1*m);
+          break;
+        }
+      }
+    default:
+      {
+        std::cout<<"The element" << in.print() << "is incompatible" <<
+          "with the homomorphism fi1ji. Returning input."<<std::endl;
+        return in;
+      }
+    }
+  }
+  if(latex)
+  {
+      std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  }
+  else
+  {
+      std::cout <<output.print()<<std::endl;
+  }
+  return output;
+}
+
 
 
 CLinComb fi1ij(CLinComb in,specht lam)
@@ -68,14 +131,19 @@ CLinComb fi1ij(CLinComb in,specht lam)
       }
     }
   }
-  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  if(latex)
+  {
+      std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  }
+  else
+  {
+      std::cout <<output.print()<<std::endl;
+  }
   return output;
 }
 
-//The function only assumes that the output is of type 1. There are
-// two different cases where this can occur. Either the input is of
-// type 2 of the form iij with i1!=j or the input is already
-// of type 1.
+//The function only assumes that the output is of type 1.
+//This cannot happend if the output is of type 3 or of the form jii
 CLinComb fijk(CLinComb in)
 {
   switch(in.type())
@@ -88,9 +156,13 @@ CLinComb fijk(CLinComb in)
     {
       return fi1ij(in,specht::t1);
     }
+  case subgroup::tss:
+    {
+      return fi1ji(in,specht::t1);
+    }
   default:
     {
-      std::cout<<"The element" << in.print() << "is incompatible" <<
+      std::cout<<"The element" << in.print() << " is incompatible" <<
         "with the homomorphism fijk. Returning input."<<std::endl;
       return in;
     }
@@ -209,7 +281,14 @@ CLinComb fkiis(CLinComb in)
       }
     }
   }
-  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  if(latex)
+  {
+      std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  }
+  else
+  {
+      std::cout <<output.print()<<std::endl;
+  }
   return output;
 }
 
@@ -273,7 +352,14 @@ CLinComb fkiit(CLinComb in)
       }
     }
   }
-  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  if(latex)
+  {
+      std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  }
+  else
+  {
+      std::cout <<output.print()<<std::endl;
+  }
   return output;
 }
 
@@ -316,7 +402,14 @@ CLinComb fiiir(CLinComb in)
         }
     }
   }
-  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  if(latex)
+  {
+      std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  }
+  else
+  {
+      std::cout <<output.print()<<std::endl;
+  }
   return output;
 }
 
@@ -329,13 +422,19 @@ CLinComb fiiis(CLinComb in)
   return changeFirstGen(in,subgroup::S3,specht::s3);
 }
 
-// We only get an element of the form iik if the input
-// is of type 1
+
+
+// We get an element of the form iik if the input
+// is of type 1 or it is of type iki and is changed to kki
 CLinComb fiiks(CLinComb in)
 {
   if(in.type() == subgroup::i)
   {
     return changeFirstGen(in,subgroup::t,specht::s2);
+  }
+  if(in.type() == subgroup::tss)
+  {
+    return fi1ji(in, specht::s2);
   }
   else
   {
@@ -350,6 +449,10 @@ CLinComb fiikt(CLinComb in)
   if(in.type() == subgroup::i)
   {
     return changeFirstGen(in,subgroup::t,specht::t2);
+  }
+  if(in.type() == subgroup::tss)
+  {
+    return fi1ji(in, specht::t2);
   }
   else
   {
@@ -385,7 +488,14 @@ CLinComb iso(CLinComb in, CSymm r)
     int m = summand.multiplicity();
     output.CreateAndAdd(summand.tensor()*r,inverse(r)*pi,m);
   }
-  std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  if(latex)
+  {
+      std::cout <<"&\\mapsto"<< output.print()<<"\\\\"<<std::endl;
+  }
+  else
+  {
+      std::cout <<output.print()<<std::endl;
+  }
   return output;
 }
 

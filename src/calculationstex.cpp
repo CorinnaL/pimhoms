@@ -21,6 +21,9 @@ void calculateStufftex()
   CLinComb x_kiit(subgroup::ts,specht::t2);
   x_kiit.CreateAndAdd("a","b","c","",1);
   // a\otimes b\otimes c\in P(k,i,i;(2))
+  CLinComb x_kiis(subgroup::ts,specht::s2);
+  x_kiis.CreateAndAdd("a","b","c","",1);
+  // a\otimes b\otimes c\in P(k,i,i;(1,1))
   CLinComb x_iikt(subgroup::t,specht::t2);
   x_iikt.CreateAndAdd("a","b","c","",1);
   // a\otimes b\otimes c\in P(i,i,k;(2))
@@ -61,17 +64,17 @@ void calculateStufftex()
   //if lambda is (3) or (1,1,1)
 
   //i* = i+1 if i' = i-1 and i*=i-1 if i'=i+1, so i*'=i
-  checkThree(Hom(fiikt)*Hom(isokji_ijk)*Hom(fijk),
+  checkThree(Hom(isokii_iik)*Hom(fiikt)*Hom(isokji_ijk)*Hom(fijk),
              Hom(fkiit)*Hom(fiiit)*Hom(isokii_iik),
              Hom(fkiit)*Hom(fiiir)*Hom(isokii_iik),
              x_iikt,
-     "\\ol{P'}(i,i,i^*;(2)) &\\rightarrow \\ol{P'}(i',i,i^*) \\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(2))",
+     "\\ol{P'}(i,i,i^*;(2)) &\\rightarrow \\ol{P'}(i',i,i^*) \\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(2))\\cong\\ol{P'}(i',i,i;(2))",
      "\\ol{P'}(i,i,i^*;(2)) &\\cong \\ol{P'}(i^*,i,i;(2)) \\rightarrow \\ol{P'}(i,i,i;(3)) \\rightarrow \\ol{P'}(i',i,i;(2))",
      "\\ol{P'}(i,i,i^*;(2)) &\\cong \\ol{P'}(i^*,i,i;(2)) \\rightarrow \\ol{P'}(i,i,i;(2,1)) \\rightarrow \\ol{P'}(i',i,i;(2))");
-  checkTwo(Hom(fiiks)*Hom(isokji_ijk)*Hom(fijk),
+  checkTwo(Hom(isokii_iik)*Hom(fiiks)*Hom(isokji_ijk)*Hom(fijk),
              Hom(fkiis)*Hom(fiiir)*Hom(isokii_iik),
              x_iikt,
-     "\\ol{P'}(i,i,i^*;(2)) &\\rightarrow \\ol{P'}(i',i,i^*) \\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(1,1))",
+     "\\ol{P'}(i,i,i^*;(2)) &\\rightarrow \\ol{P'}(i',i,i^*) \\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(1,1))\\cong\\ol{P'}(i',i,i;(1,1))",
      "\\ol{P'}(i,i,i^*;(2)) &\\cong \\ol{P'}(i^*,i,i;(2)) \\rightarrow \\ol{P'}(i,i,i;(2,1)) \\rightarrow \\ol{P'}(i',i,i;(1,1))");
   checkThree(Hom(isokii_iik)*Hom(fiiks)*Hom(isokji_ijk)*Hom(fijk),
              Hom(fkiis)*Hom(fiiis)*Hom(isokii_iik),
@@ -93,7 +96,7 @@ void calculateStufftex()
              x_kiit,
      "\\ol{P'}(i,i^*,i^*;(2)) &\\rightarrow \\ol{P'}(i',i^*,i^*;(2)) \\cong \\ol{P'}(i^*,i^*,i';(2)) \\rightarrow \\ol{P'}(i,i^*,i') \\cong \\ol{P'}(i',i,i^*)",
      "\\ol{P'}(i,i^*,i^*;(2)) &\\cong \\ol{P'}(i^*,i^*,i;(2)) \\rightarrow \\ol{P'}(i,i^*,i;(2)) \\cong \\ol{P'}(i,i,i^*;(2)) \\rightarrow\\ol{P'}(i',i,i^*)",
-     "\\ol{P'}(i,i^*,i^*;(2)) &\\cong \\ol{P'}(i^*,i^*,i;(2)) \\rightarrow \\ol{P'}(i,i^*,i;(1,1)) \\cong \\ol{P'}(i,i,i^*;(2)) \\rightarrow\\ol{P'}(i',i,i^*)");
+     "\\ol{P'}(i,i^*,i^*;(2)) &\\cong \\ol{P'}(i^*,i^*,i;(2)) \\rightarrow \\ol{P'}(i,i^*,i;(1,1)) \\cong \\ol{P'}(i,i,i^*;(1,1)) \\rightarrow\\ol{P'}(i',i,i^*)");
   checkTwo( Hom(fiiir)*Hom(isokii_iki)*Hom(fikit)*Hom(isoiik_kii),
             Hom(fiiir)*Hom(isokii_iki)*Hom(fikis)*Hom(isoiik_kii),
              x_kiit,
@@ -103,10 +106,32 @@ void calculateStufftex()
   checkTwo( Hom(fijk)*Hom(isoiik_kii)*Hom(fkiit),
             Hom(isokji_ijk)*Hom(fijk)*Hom(isokji_ijk)*Hom(fijk)*Hom(isoiik_kii),
              x_kiit,
-     "\\ol{P}(j,i,i;(2)) &\\rightarrow \\ol{P'}(j',i,i;(2)) \\cong \\ol{P'}(i,i,j';(2)) \\rightarrow \\ol{P'}(i',i,j)",
-     "\\ol{P'}(j,i,i;(2)) &\\cong \\ol{P'}(i,i,j;(2)) \\rightarrow \\ol{P'}(i',i,j) \\cong \\ol{P'}(j,i,i') \\rightarrow \\ol{P'}(j',i,i') \\rightarrow \\ol{P'}(i',i,j)");
+     "\\ol{P}(j,i,i;(2)) &\\rightarrow \\ol{P'}(j',i,i;(2)) \\cong \\ol{P'}(i,i,j';(2)) \\rightarrow \\ol{P'}(i',i,j')",
+     "\\ol{P'}(j,i,i;(2)) &\\cong \\ol{P'}(i,i,j;(2)) \\rightarrow \\ol{P'}(i',i,j) \\cong \\ol{P'}(j,i,i') \\rightarrow \\ol{P'}(j',i,i') \\rightarrow \\ol{P'}(i',i,j')");
   // again there is only one non-zero path jiimu -> ji'i'mu
   // as the intermediate module is always ji'i
+
+  checkThree(Hom(isokij_ijk)*Hom(fijk)*Hom(isoiik_kii)*Hom(fkiis),
+             Hom(fijk)*Hom(isoiik_iki)*Hom(fikit)*Hom(isoiik_kii),
+             Hom(fijk)*Hom(isoiik_iki)*Hom(fikis)*Hom(isoiik_kii),
+             x_kiis,
+     "\\ol{P'}(i,i^*,i^*;(1,1)) &\\rightarrow \\ol{P'}(i',i^*,i^*;(1,1)) \\cong \\ol{P'}(i^*,i^*,i';(1,1)) \\rightarrow \\ol{P'}(i,i^*,i') \\cong \\ol{P'}(i',i,i^*)",
+     "\\ol{P'}(i,i^*,i^*;(1,1)) &\\cong \\ol{P'}(i^*,i^*,i;(1,1)) \\rightarrow \\ol{P'}(i,i^*,i;(2)) \\cong \\ol{P'}(i,i,i^*;(2)) \\rightarrow\\ol{P'}(i',i,i^*)",
+     "\\ol{P'}(i,i^*,i^*;(1,1)) &\\cong \\ol{P'}(i^*,i^*,i;(1,1)) \\rightarrow \\ol{P'}(i,i^*,i;(1,1)) \\cong \\ol{P'}(i,i,i^*;(1,1)) \\rightarrow\\ol{P'}(i',i,i^*)");
+  checkTwo( Hom(fiiir)*Hom(isokii_iki)*Hom(fikit)*Hom(isoiik_kii),
+            Hom(fiiir)*Hom(isokii_iki)*Hom(fikis)*Hom(isoiik_kii),
+             x_kiis,
+     "\\ol{P'}(i,i^*,i^*;(1,1)) &\\cong \\ol{P'}(i^*,i^*,i;(1,1)) \\rightarrow \\ol{P'}(i,i^*,i;(2)) \\cong \\ol{P'}(i^*,i,i;(2)) \\rightarrow \\ol{P'}(i,i,i;(2,1))",
+     "\\ol{P'}(i,i^*,i^*;(1,1)) &\\cong \\ol{P'}(i^*,i^*,i;(1,1)) \\rightarrow \\ol{P'}(i,i^*,i;(1,1)) \\cong \\ol{P'}(i^*,i,i;(1,1)) \\rightarrow \\ol{P'}(i,i,i;(2,1))");
+  // There is only one descending non-zero path ii*i*mu -> iiilambda
+  checkTwo( Hom(fijk)*Hom(isoiik_kii)*Hom(fkiis),
+            Hom(isokji_ijk)*Hom(fijk)*Hom(isokji_ijk)*Hom(fijk)*Hom(isoiik_kii),
+             x_kiis,
+     "\\ol{P}(j,i,i;(1,1)) &\\rightarrow \\ol{P'}(j',i,i;(1,1)) \\cong \\ol{P'}(i,i,j';(1,1)) \\rightarrow \\ol{P'}(i',i,j')",
+     "\\ol{P'}(j,i,i;(1,1)) &\\cong \\ol{P'}(i,i,j;(1,1)) \\rightarrow \\ol{P'}(i',i,j) \\cong \\ol{P'}(j,i,i') \\rightarrow \\ol{P'}(j',i,i') \\rightarrow \\ol{P'}(i',i,j')");
+  // again there is only one non-zero path jiimu -> ji'i'mu
+  // as the intermediate module is always ji'i
+
 
 
   checkThree(Hom(fkiit)*Hom(isokii_iik)*Hom(fiikt)*Hom(isojik_ijk),
@@ -114,31 +139,40 @@ void calculateStufftex()
              Hom(isokii_iki)*Hom(fikit)*Hom(fiiks)*Hom(isokji_ijk),
              x_ijk,
      "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i,i',i^*) \\rightarrow \\ol{P'}(i',i',i^*;(2)) \\cong \\ol{P'}(i^*,i',i';(2)) \\rightarrow \\ol{P'}(i,i',i';(2))",
-     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(2)) \\rightarrow \\ol{P'}(i',i,i';(2)) \\cong  \\ol{P'}(i^*,i',i';(2))",
-     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(1,1)) \\rightarrow \\ol{P'}(i',i,i';(2)) \\cong  \\ol{P'}(i^*,i',i';(2))");
+     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(2)) \\rightarrow \\ol{P'}(i',i,i';(2)) \\cong  \\ol{P'}(i,i',i';(2))",
+     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(1,1)) \\rightarrow \\ol{P'}(i',i,i';(2)) \\cong  \\ol{P'}(i,i',i';(2))");
 
   checkThree(Hom(fkiis)*Hom(isokii_iik)*Hom(fiiks)*Hom(isojik_ijk),
              Hom(isokii_iki)*Hom(fikis)*Hom(fiikt)*Hom(isokji_ijk),
              Hom(isokii_iki)*Hom(fikis)*Hom(fiiks)*Hom(isokji_ijk),
              x_ijk,
-     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i,i',i^*) \\rightarrow \\ol{P'}(i',i',i^*;(1,1)) \\cong i2i'i'(1,1) \\rightarrow \\ol{P'}(i^*,i',i';(1,1))",
-     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(2)) \\rightarrow \\ol{P'}(i',i,i';(1,1)) \\cong  \\ol{P'}(i^*,i',i';(1,1))",
-     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(1,1)) \\rightarrow \\ol{P'}(i',i,i';(1,1)) \\cong  \\ol{P'}(i^*,i',i';(1,1))");
+     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i,i',i^*) \\rightarrow \\ol{P'}(i',i',i^*;(1,1)) \\cong \\ol{P'}(i^*,i',i';(1,1)) \\rightarrow \\ol{P'}(i,i',i';(1,1))",
+     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(2)) \\rightarrow \\ol{P'}(i',i,i';(1,1)) \\cong  \\ol{P'}(i,i',i';(1,1))",
+     "\\ol{P'}(i',i,i^*) &\\cong \\ol{P'}(i^*,i,i') \\rightarrow \\ol{P'}(i,i,i';(1,1)) \\rightarrow \\ol{P'}(i',i,i';(1,1)) \\cong  \\ol{P'}(i,i',i';(1,1))");
 
-  //TODO: this looks generic.
-  checkTwo(Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk)*Hom(fijk),
-             Hom(fijk)*Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk),
-             x_ijk,
-     "\\ol{P'}(j,i,i^*) &\\rightarrow \\ol{P'}(j',i,i^*) \\cong \\ol{P'}(i,j',i^*) \\rightarrow \\ol{P'}(i',j',i^*) \\rightarrow \\ol{P'}(j',i',i^*)",
-     "\\ol{P'}(j,i,i^*) &\\cong \\ol{P'}(i,j,i^*) \\rightarrow \\ol{P'}(i',j,i^*) \\cong \\ol{P'}(j,i',i^*) \\rightarrow\\ol{P'}(j',i',i^*)");
   checkTwo(Hom(isokii_iki)*Hom(fikit)*Hom(isokij_ijk)*Hom(fijk),
              Hom(fkiit)*Hom(isokii_iki)*Hom(fikit)*Hom(isokij_ijk),
              x_ijk,
-     "\\ol{P'}(j,i,i^*) &\\rightarrow \\ol{P'}(j',i,i^*) \\cong \\ol{P'}(i^*,j',i) \\rightarrow \\ol{P'}(i,j',i;(2)) \\rightarrow \\ol{P'}(j',i,i;(2))",
+     "\\ol{P'}(j,i,i^*) &\\rightarrow \\ol{P'}(j',i,i^*) \\cong \\ol{P'}(i^*,j',i) \\rightarrow \\ol{P'}(i,j',i;(2)) \\cong \\ol{P'}(j',i,i;(2))",
      "\\ol{P'}(j,i,i^*) &\\cong \\ol{P'}(i^*,j,i) \\rightarrow \\ol{P'}(i,j,i;(2)) \\cong \\ol{P'}(j,i,i;(2)) \\rightarrow\\ol{P'}(j',i,i;(2))");
   checkTwo(Hom(isokii_iki)*Hom(fikis)*Hom(isokij_ijk)*Hom(fijk),
              Hom(fkiis)*Hom(isokii_iki)*Hom(fikis)*Hom(isokij_ijk),
              x_ijk,
-     "\\ol{P'}(j,i,i^*) &\\rightarrow \\ol{P'}(j',i,i^*) \\cong \\ol{P'}(i^*,j',i) \\rightarrow \\ol{P'}(i,j',i;(1,1)) \\rightarrow \\ol{P'}(j',i,i;(1,1))",
+     "\\ol{P'}(j,i,i^*) &\\rightarrow \\ol{P'}(j',i,i^*) \\cong \\ol{P'}(i^*,j',i) \\rightarrow \\ol{P'}(i,j',i;(1,1)) \\cong \\ol{P'}(j',i,i;(1,1))",
      "\\ol{P'}(j,i,i^*) &\\cong \\ol{P'}(i^*,j,i) \\rightarrow \\ol{P'}(i,j,i;(1,1)) \\cong \\ol{P'}(j,i,i;(1,1)) \\rightarrow\\ol{P'}(j',i,i;(1,1))");
+  checkThree(Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fijk)*Hom(fiikt)*Hom(isojik_ijk),
+             Hom(fijk)*Hom(fiiks)*Hom(isojik_ijk),
+             x_ijk,
+     "\\ol{P'}(i,i^*,j) &\\rightarrow \\ol{P'}(i',i^*,j) \\cong \\ol{P'}(i^*,i',j) \\rightarrow \\ol{P'}(i,i',j) \\cong \\ol{P'}(i',i,j)",
+     "\\ol{P'}(i,i^*,j) &\\cong \\ol{P'}(i^*,i,j) \\rightarrow \\ol{P'}(i,i,j;(2)) \\rightarrow\\ol{P'}(i',i,j)",
+     "\\ol{P'}(i,i^*,j) &\\cong \\ol{P'}(i^*,i,j) \\rightarrow \\ol{P'}(i,i,j;(1,1)) \\rightarrow\\ol{P'}(i',i,j)");
+  checkTwo(Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk)*Hom(fijk),
+             Hom(fijk)*Hom(isojik_ijk)*Hom(fijk)*Hom(isojik_ijk),
+             x_ijk,
+     "\\ol{P'}(i,j,k) &\\rightarrow \\ol{P'}(i',j,k) \\cong \\ol{P'}(j,i',k) \\rightarrow \\ol{P'}(j',i',k) \\cong \\ol{P'}(i',j',k)",
+     "\\ol{P'}(i,j,k) &\\cong \\ol{P'}(j,i,k) \\rightarrow \\ol{P'}(j',i,k) \\cong \\ol{P'}(i,j',k) \\rightarrow\\ol{P'}(i',j',k)");
+  std::cout << makecalctitleij("i","j","k","","","")<<std::endl;
+  std::cout << makecalctitleji("i","j","k","","","")<<std::endl;
+  std::cout << makecalctitleij("i","i","k","(2)","","")<<std::endl;
 }
